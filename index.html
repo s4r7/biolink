@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biolink</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      background: #000;
+    }
+    #bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 420px;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(6px);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      transition: transform 0.2s ease-out;
+    }
+    .name {
+      color: lime;
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .badges img {
+      width: 34px;
+      margin: 0 4px;
+    }
+    .bio {
+      margin-top: 15px;
+      color: lime;
+      font-size: 18px;
+      font-weight: 300;
+    }
+    .icon {
+      margin-top: 25px;
+    }
+    .icon img {
+      width: 48px;
+      cursor: pointer;
+      filter: drop-shadow(0 0 6px #00aaff);
+    }
+
+    @media (max-width: 900px) {
+      body {
+        overflow: auto;
+      }
+      .container {
+        transform: translate(-50%, -50%) const tiltIntensity = 40;
+    card.style.transform = `translate(-50%, -50%) rotateX(${y/tiltIntensity}deg) rotateY(${-x/tiltIntensity}deg)`;(0) rotateY(0) !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <video id="bg" autoplay muted loop playsinline></video>
+  <img id="bgimg" style="display:none;" />
+  <audio id="music" autoplay loop src="song.mp3"></audio>
+
+  <div class="container" id="card">
+    <div class="name">.</div>
+    <div class="badges">
+      <img src="badge1.png">
+      <img src="badge2.png">
+      <img src="badge3.png">
+    </div>
+    <div class="bio">example</div>
+    <div class="icon">
+      <a href="https://discord.gg" target="_blank"><img src="discord.png"></a>
+    </div>
+  </div>
+
+<script>
+  const bgVideo = document.getElementById('bg');
+  const bgImg = document.getElementById('bgimg');
+
+  fetch('background.mp4').then(r=>{
+    if (r.ok) bgVideo.src = 'background.mp4';
+    else fetch('background.webp').then(r2=>{
+      if (r2.ok){ bgImg.src='background.webp'; bgImg.style.display='block'; }
+      else fetch('background.png').then(r3=>{
+        if (r3.ok){ bgImg.src='background.png'; bgImg.style.display='block'; }
+      })
+    })
+  })
+
+  const card = document.getElementById('card');
+  document.addEventListener('mousemove', e => {
+    const x = (window.innerWidth / 2 - e.clientX) / 30;
+    const y = (window.innerHeight / 2 - e.clientY) / 30;
+    card.style.transform = `translate(-50%, -50%) rotateX(${y}deg) rotateY(${-x}deg)`;
+  });
+</script>
+</body>
+</html>
